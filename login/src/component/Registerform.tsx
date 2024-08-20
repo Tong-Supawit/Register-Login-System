@@ -1,14 +1,31 @@
 import axios from "axios";
 import { useState } from "react";
+const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
 function RegisterForm() : JSX.Element {
-    const [username, setUsername] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // const [error, setError] = useState("");
+
+    // const validation = () : boolean => {
+    //     if(!username.trim() || !email.trim() || !password.trim()){
+    //         setError("Please fill in all fields");
+    //         console.log(error)
+    //         return false;
+    //     }
+    //     setError("")
+    //     return true;
+    // }
 
     const handleSubmit = async (event : React.FormEvent) => {
         event.preventDefault();
-        try {await axios.post("http://localhost:8080/register", {
+        if(!username.trim() || !email.trim() || !password.trim() || !emailRegex.test(email)){
+            console.log("error")
+            return;
+        }
+        try {await axios.post(`${apiUrl}/register`, {
             username : username,
             email : email,
             password : password
