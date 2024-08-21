@@ -13,6 +13,7 @@ function App() {
       <Nav/>
       <Routes>
         <Route path="/" element = {<Homepage/>} />
+        <Route path="/logout" element = {<Homepage/>} />
         <Route path="/about" element = {<AboutMe/>} />
         <Route path="/register" element = {<RegisterForm/>} />
         <Route path="/login" element = {<LoginForm/>} />

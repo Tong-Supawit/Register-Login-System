@@ -1,12 +1,10 @@
-import { useState } from "react";
+import { useContext } from "react";
 import axios from "axios";
+import {StateContext} from "./context/StateContext";
 const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
 function LoginForm() : JSX.Element {
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
-
-
+    const {username, setUsername, password, setPassword} = useContext(StateContext)
     const handleSubmit = async (event : React.FormEvent) => {
         event.preventDefault();
         if(!username.trim() || !password.trim()){
@@ -17,6 +15,8 @@ function LoginForm() : JSX.Element {
             await axios.post(`${apiUrl}/login`, {
                 username : username,
                 password : password
+            }, {
+                withCredentials : true
             })
             setUsername("")
             setPassword("")
@@ -24,7 +24,6 @@ function LoginForm() : JSX.Element {
             console.log(err)
         }
     }
-
     return(
         <div className="loginContainer">
         <form action="" onSubmit={handleSubmit}>
